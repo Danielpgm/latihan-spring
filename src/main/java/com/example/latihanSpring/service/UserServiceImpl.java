@@ -2,12 +2,15 @@ package com.example.latihanSpring.service;
 
 import javax.transaction.Transactional;
 
+import com.example.latihanSpring.model.dto.DomisiliDto;
 import com.example.latihanSpring.model.dto.PersonDto;
 import com.example.latihanSpring.model.dto.StatusMessageDto;
 import com.example.latihanSpring.model.entity.DetailUserEntity;
+import com.example.latihanSpring.model.entity.DomisiliEntity;
+import com.example.latihanSpring.model.entity.Pendidikan;
 import com.example.latihanSpring.model.entity.UserEntity;
 import com.example.latihanSpring.repository.DetailUserRepo;
-import com.example.latihanSpring.repository.PersonRepository;
+import com.example.latihanSpring.repository.DomisiliRepo;
 import com.example.latihanSpring.repository.UserRepo;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +26,8 @@ public class UserServiceImpl implements UserService {
     private UserRepo userRepo;
     @Autowired
     private DetailUserRepo detailUserRepo;
+    @Autowired
+    private DomisiliRepo domisiliRepo;
 
     @Override
     public ResponseEntity<?> regisUser(PersonDto dto) {
@@ -57,5 +62,4 @@ public class UserServiceImpl implements UserService {
         
         return ResponseEntity.ok(result);
     }
-    
 }

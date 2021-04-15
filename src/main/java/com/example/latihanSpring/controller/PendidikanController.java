@@ -27,7 +27,7 @@ public class PendidikanController {
     private PendidikanRepo pendidikanRepo;  
     @Autowired
     private UserRepo userRepo;
-
+    
     @PostMapping("/insert/pendidikan")
     public ResponseEntity<?> insertpendidikan(@RequestBody PendidikaDto dto){
         Pendidikan pendidikan=new Pendidikan();
@@ -36,7 +36,7 @@ public class PendidikanController {
         pendidikan.setJenjang(dto.getJenjang());
         pendidikan.setKodependidikan(dto.getKodependidikan());
         pendidikanRepo.save(pendidikan);
-        pendidikan.setKodependidikan("P" + pendidikan.getKodependidikan());
+        pendidikan.setKodependidikan("P" + pendidikan.getId());
 
         UserEntity userEntity= userRepo.findByUsername(dto.getUsername()); // untuk mendapatkan username yang berada di user entity
         pendidikan.setUserEntity(userEntity);
@@ -51,7 +51,7 @@ public class PendidikanController {
     }
 
     @PutMapping("/update/pendidikan/{id}")
-    public ResponseEntity<?> deteleData(@PathVariable Integer id, @RequestBody PendidikaDto dto){
+    public ResponseEntity<?> updateData(@PathVariable Integer id, @RequestBody PendidikaDto dto){
         Pendidikan pendidikan= pendidikanRepo.findById(id).get();
         pendidikan.setInstitusi(dto.getInstitusi());
         pendidikan.setJenjang(dto.getJenjang());

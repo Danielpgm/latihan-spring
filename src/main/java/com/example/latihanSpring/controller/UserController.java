@@ -3,12 +3,15 @@ package com.example.latihanSpring.controller;
 import javax.imageio.spi.ServiceRegistry;
 import javax.naming.spi.DirStateFactory.Result;
 
+import com.example.latihanSpring.model.dto.DomisiliDto;
 import com.example.latihanSpring.model.dto.LoginDto;
 import com.example.latihanSpring.model.dto.PersonDto;
 import com.example.latihanSpring.model.dto.StatusMessageDto;
 import com.example.latihanSpring.model.entity.DetailUserEntity;
+import com.example.latihanSpring.model.entity.DomisiliEntity;
 import com.example.latihanSpring.model.entity.UserEntity;
 import com.example.latihanSpring.repository.DetailUserRepo;
+import com.example.latihanSpring.repository.DomisiliRepo;
 import com.example.latihanSpring.repository.UserRepo;
 import com.example.latihanSpring.service.UserService;
 
@@ -29,11 +32,13 @@ public class UserController {
     private DetailUserRepo detailUserRepo;
     @Autowired
     private UserService userService;
+    @Autowired
+    private DomisiliRepo domisiliRepo;
 
     @PostMapping("/registration")
     public ResponseEntity<?> regis(@RequestBody PersonDto dto){
-        StatusMessageDto<UserEntity> result= new StatusMessageDto<>();
-        try{
+        // StatusMessageDto<UserEntity> result= new StatusMessageDto<>();
+        // try{
         // SEBELUM MENGGUNAKAN SERVICE
             // UserEntity userEntity= new UserEntity();
             // DetailUserEntity detailUserEntity= new DetailUserEntity();
@@ -56,10 +61,10 @@ public class UserController {
             // result.setData(userEntity);
             
             return userService.regisUser(dto);
-        }catch(Exception e){
-            result.setMessage(e.getMessage());
-            return ResponseEntity.badRequest().body(result);
-        }
+        // }catch(Exception e){
+        //     result.setMessage(e.getMessage());
+        //     return ResponseEntity.badRequest().body(result);
+        // }
     }
 
     @PostMapping("/login")

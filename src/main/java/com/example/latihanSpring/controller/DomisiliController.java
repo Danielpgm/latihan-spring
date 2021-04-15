@@ -29,17 +29,18 @@ public class DomisiliController {
 
     @PostMapping("/insert/domisili")
     public ResponseEntity<?> insertdomisili(@RequestBody DomisiliDto dto){
-        DomisiliEntity domisiliEntity= new DomisiliEntity();
+        // JIKA MENGGUNAKAN CONTROLLER SAJA
+            DomisiliEntity domisiliEntity= new DomisiliEntity();
 
-        domisiliEntity.setKelurahan(dto.getKelurahan());
-        domisiliEntity.setKecamatan(dto.getKecamatan());
-        domisiliEntity.setProvinsi(dto.getProvinsi());
-        domisiliRepo.save(domisiliEntity);
+            domisiliEntity.setKelurahan(dto.getKelurahan());
+            domisiliEntity.setKecamatan(dto.getKecamatan());
+            domisiliEntity.setProvinsi(dto.getProvinsi());
+            domisiliRepo.save(domisiliEntity);
 
-        UserEntity userEntity = userRepo.findByUsername(dto.getUsername()); // untuk mendapatkan username
-        domisiliEntity.setUserEntity(userEntity);
-        domisiliRepo.save(domisiliEntity);
-        return ResponseEntity.ok(domisiliEntity);
+            UserEntity userEntity = userRepo.findByUsername(dto.getUsername()); // untuk mendapatkan username
+            domisiliEntity.setUserEntity(userEntity);
+            domisiliRepo.save(domisiliEntity);
+            return ResponseEntity.ok(domisiliEntity);
     }
 
     @GetMapping("/domisili-all-data")
