@@ -1,3 +1,4 @@
+// GENERIC CLASS
 package com.example.latihanSpring.model.dto;
 
 import lombok.AllArgsConstructor;
@@ -7,9 +8,8 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class PendidikanDto {
-    private String kodePendidikan;
-    private String jenjang;
-    private String institusi;
-    private String username;
+public class StatusMessageDto<T> {
+    private Integer status;
+    private String message;
+    private T data; // HARUS SESUAI DENGAN YANG ADA DI PUBLIC CLASS
 }

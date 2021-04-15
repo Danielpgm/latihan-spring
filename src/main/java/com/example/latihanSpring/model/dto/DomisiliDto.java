@@ -7,7 +7,9 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class LoginDto {
+public class DomisiliDto {
+    private String kelurahan;
+    private String kecamatan;
+    private String provinsi;
     private String username;
-    private String password;
 }

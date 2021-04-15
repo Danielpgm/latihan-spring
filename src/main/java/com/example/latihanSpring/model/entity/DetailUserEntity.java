@@ -10,19 +10,17 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
-@Entity
-@Table(name = "detail_user")
+@NoArgsConstructor // empty constructor
+@Entity // annotation that declare this class is an entity
+@Table(name = "detail_user")  // annotation declare for create table "detail_user" in database
 public class DetailUserEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id //primary key for column id
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // generated values and auto increament
     private Integer id;
 
     @Column
@@ -32,26 +30,30 @@ public class DetailUserEntity {
     private String lastname;
 
     @Column
+    private String domisili;
+
+    @Column
+    private Date tanggal;
+
+    @Column
     private String nik;
 
     @Column
-    private String domisili;
+    private String golDarah;
 
-    @Temporal(value = TemporalType.DATE)
-    @Column
-    private Date tanggalLahir;
+    @OneToOne // annotation for reation in databse (1 to 1)
+    @JoinColumn(name = "userId") // create column for foreign key between detailuser and user
+    private UserEntity userEntity; // getting data from userEntity
 
-    @OneToOne
-    @JoinColumn(name = "userId")
-    private UserEntity userEntity;
-
-    public DetailUserEntity(String firstname, String lastname, String nik, String domisili, Date tanggalLahir,
-            UserEntity userEntity) {
+    public DetailUserEntity(String firstname, String lastname, String domisili,
+            Date tanggal, String nik, String golDarah) {
         this.firstname = firstname;
         this.lastname = lastname;
-        this.nik = nik;
         this.domisili = domisili;
-        this.tanggalLahir = tanggalLahir;
-        this.userEntity = userEntity;
+        this.tanggal = tanggal;
+        this.nik = nik;
+        this.golDarah = golDarah;
     }
+
+    
 }

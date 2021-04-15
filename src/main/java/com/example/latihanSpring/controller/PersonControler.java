@@ -43,15 +43,15 @@ public class PersonControler {
     public ResponseEntity<?> insertPerson(@RequestBody PersonDto personDto){
         // PersonEntity personEntity= new PersonEntity();
 
+        // CONVERT DTO TO ENTITY
         // personEntity.setFirtsName(personDto.getFirstname());
         // personEntity.setLastName(personDto.getLastname());
         // personEntity.setDomisili(personDto.getDomisili());
         // personEntity.setDateofBirth(personDto.getTanggal());
         // personRepository.save(personEntity);
 
-        // JIKA MENGGUNAKAN SERVICE
+        // TRANSFER DATA MELALUI SERVICE
         PersonEntity personEntity= personService.insertData(personDto);
-
         return ResponseEntity.ok(personEntity);
     }
 
@@ -65,13 +65,16 @@ public class PersonControler {
     // UPDATE
     @PutMapping("/update/person/{id}")
     public ResponseEntity<?> update(@PathVariable Integer id, @RequestBody PersonDto pdto){
-        PersonEntity personEntity= personRepository.findById(id).get();
+        // PersonEntity personEntity= personRepository.findById(id).get();
         
-        personEntity.setFirtsName(pdto.getFirstname());
-        personEntity.setLastName(pdto.getLastname());
-        personEntity.setDomisili(pdto.getDomisili());
-        personEntity.setDateofBirth(pdto.getTanggal());
-        personRepository.save(personEntity);
+        // personEntity.setFirtsName(pdto.getFirstname());
+        // personEntity.setLastName(pdto.getLastname());
+        // personEntity.setDomisili(pdto.getDomisili());
+        // personEntity.setDateofBirth(pdto.getTanggal());
+        // personRepository.save(personEntity);
+
+        // UPDATE DATA MELALUI SERVICE
+        PersonEntity personEntity= personService.updateData(id, pdto);
         return ResponseEntity.ok(personEntity);
     }
 

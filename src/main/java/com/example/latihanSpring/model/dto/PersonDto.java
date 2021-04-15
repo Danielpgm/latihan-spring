@@ -3,13 +3,14 @@
 package com.example.latihanSpring.model.dto;
 import java.util.Date;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class PersonDto {
-
     private String username;
     private String password;
     private String firstname;
@@ -17,19 +18,12 @@ public class PersonDto {
     private String domisili;
     private Date tanggal;
     private String nik;
-    private String golDarah;
+    private String goldarah;
 
-    public PersonDto(String username, String password, String firstname, String lastname, String domisili, Date tanggal,
-        String nik, String golDarah) {
-        this.username = username;
-        this.password = password;
-        this.firstname = firstname;
-        this.lastname = lastname;
-        this.domisili = domisili;
-        this.tanggal = tanggal;
-        this.nik = nik;
-        this.golDarah = golDarah;
-    }
+    // public PersonDto(String firstname, String lastname) {
+    //     this.firstname = firstname;
+    //     this.lastname = lastname;
+    // }
 
     // SETTER AND GETTER
     // JIKA MENGGUNAKAN @DATA TIDAK PERLU MENGGUNAKAN SETTER DAN GETTER LAGI 

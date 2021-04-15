@@ -29,11 +29,18 @@ public class PersonServiceImpl implements PersonService {
         return personEntity;
     }
 
-    // @Override
-    // public PersonEntity updateData(Integer id, PersonDto update) {
-    //     // TODO Auto-generated method stub
-    //     return null;
-    // }
+    @Override
+    public PersonEntity updateData(Integer id, PersonDto pdto) {
+        // PersonEntity personEntity= new PersonEntity();
+        PersonEntity personEntity= personRepository.findById(id).get();
 
-    
+        personEntity.setFirtsName(pdto.getFirstname());
+        personEntity.setLastName(pdto.getLastname());
+        personEntity.setDomisili(pdto.getDomisili());
+        personEntity.setDateofBirth(pdto.getTanggal());
+        personRepository.save(personEntity);
+        
+        personRepository.save(personEntity);
+        return personEntity;
+    }    
 }
