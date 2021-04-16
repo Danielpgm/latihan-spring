@@ -9,6 +9,7 @@ import com.example.latihanSpring.model.entity.ProvinsiEntity;
 import com.example.latihanSpring.repository.KabupatenRepo;
 import com.example.latihanSpring.repository.KecamatanRepo;
 import com.example.latihanSpring.repository.ProvinsiRepo;
+import com.example.latihanSpring.service.KecamatanService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -30,62 +31,36 @@ public class KecamatanController {
     private KabupatenRepo kabupatenRepo;
     @Autowired
     private ProvinsiRepo provinsiRepo;
-
-    private KecamatanEntity convert(KecamatanDto dto){
-        KecamatanEntity kecamatanEntity= new KecamatanEntity();
-        kecamatanEntity.setNama(dto.getNama());
-        kecamatanEntity.setKodeKecamatan(dto.getKodekecamatan());
-        kecamatanRepo.save(kecamatanEntity);
-
-        KabupatenEntity kabupatenEntity= kabupatenRepo.findByNama(dto.getNamakabupaten());
-        kecamatanEntity.setKabupatenEntity(kabupatenEntity);
-        kecamatanRepo.save(kecamatanEntity);
-
-        ProvinsiEntity provinsiEntity= provinsiRepo.findByNama(dto.getNamaprovinsi());
-        kecamatanEntity.setProvinsiEntity(provinsiEntity);
-        kecamatanRepo.save(kecamatanEntity);
-        return kecamatanEntity;
-    }
+    @Autowired
+    private KecamatanService kecamatanService;
 
     @PostMapping("/insert/kecamatan")
     public ResponseEntity<?> postprovinsi(@RequestBody List<KecamatanDto> dto) {
-        Integer index = 0;
-        if(dto.get(index).getKodekecamatan() == kecamatanRepo.findKodeKecamatanByKodeKecamatan(dto.get(index).getKodekecamatan())){
-            return ResponseEntity.badRequest().body(dto.get(index).getNama() + " Telah terdaftar" + " dengan kode " + dto.get(index).getKodekecamatan());
-        }
-        for(KecamatanDto kecamatanDto: dto){
-            convert(kecamatanDto);
-        }
-        return ResponseEntity.ok(dto);
+        return kecamatanService.inputKecamatan(dto);
     }
 
-    @GetMapping("/kecamatan/get-all")
+    @GetMapping("/kecamatan/get/all")
     public ResponseEntity<?> getAll() {
-        List<KecamatanEntity> kec= kecamatanRepo.findAll();
-        return ResponseEntity.ok(kec);
+        return kecamatanService.getAll();
     }
 
-    @GetMapping("/kecamatan/get-{id}")
+    @GetMapping("/kecamatan/getbyId/{id}")
     public ResponseEntity<?> getById(@PathVariable Integer id){
-        KecamatanEntity kecamatanEntity= kecamatanRepo.findById(id).get();
-        return ResponseEntity.ok(kecamatanEntity);
+        return kecamatanService.getById(id);
+    }
+    
+    @GetMapping("/kabupaten/get/bykodeKecamatan/{id}")
+    public ResponseEntity<?> getByKodeKabupaten(@PathVariable Integer id){
+        return kecamatanService.getByKodeKecamatan(id);
     }
 
     @PutMapping("/update/kecamatan/{id}")
     public ResponseEntity<?> putProvinsi(@PathVariable Integer id, @RequestBody KecamatanDto dto){
-        ProvinsiEntity provinsiEntity= new ProvinsiEntity();
-        
-        provinsiEntity.setNama(dto.getNama());
-        provinsiRepo.save(provinsiEntity);
-
-        return ResponseEntity.ok("Kabupaten " +kecamatanRepo.findNamebyName(dto.getKodekecamatan())+" dengan kode "+ id +
-        " telah diubah namanya menjadi " + dto.getNama());
+        return kecamatanService.updateKecamatan(id, dto);
     }
 
-    @DeleteMapping("/kecamatan/delete-{id}")
+    @DeleteMapping("/kecamatan/delete/byId/{id}")
     public ResponseEntity <?> deletedata(@PathVariable Integer id){
-        KecamatanEntity kecamatanEntity= kecamatanRepo.findById(id).get();
-        kecamatanRepo.delete(kecamatanEntity);
-        return ResponseEntity.ok("Data "+ kecamatanEntity.getNama()+" berhasil di hapus!");
+        return kecamatanService.deleteKecamatan(id);
     }
 }

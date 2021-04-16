@@ -1,5 +1,7 @@
 package com.example.latihanSpring.repository;
 
+import java.util.List;
+
 import com.example.latihanSpring.model.entity.KecamatanEntity;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -13,6 +15,6 @@ public interface KecamatanRepo extends JpaRepository<KecamatanEntity, Integer>{
     @Query(value = "select kode_kecamatan from kecamatan where kode_kecamatan = ?", nativeQuery = true)
     public Integer findKodeKecamatanByKodeKecamatan(Integer kodeprovinsi);
 
-    @Query(value = "select nama from kecamatan where kode_kecamatan= ?", nativeQuery = true)
-    public String findNamebyName(Integer kodeKecamatan);
+    @Query(value = "select * from kabupaten where kode_kabupaten= ?", nativeQuery = true)
+    List<KecamatanEntity> findByKodeProvinsi(Integer kode);
 }
