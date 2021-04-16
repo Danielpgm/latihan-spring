@@ -9,8 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class DesaDto {
     private String nama;
-    private Integer kodedesa;
-    private String idkecamatan;
-    private String idkabupaten;
-    private String idprovinsi;
+    private String namakecamatan;
+    private String namakabupaten;
+    private String namaprovinsi;
 }

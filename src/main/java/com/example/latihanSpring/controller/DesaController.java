@@ -38,18 +38,17 @@ public class DesaController {
     private DesaEntity convert(DesaDto dto){
         DesaEntity desaEntity= new DesaEntity();
         desaEntity.setNama(dto.getNama());
-        desaEntity.setKodeDesa(dto.getKodedesa());
         desaRepo.save(desaEntity);
 
-        KecamatanEntity kecamatanEntity= kecamatanRepo.findByNama(dto.getIdkecamatan());
+        KecamatanEntity kecamatanEntity= kecamatanRepo.findByNama(dto.getNamakecamatan());
         desaEntity.setKecamatanEntity(kecamatanEntity);
         desaRepo.save(desaEntity);
 
-        KabupatenEntity kabupatenEntity= kabupatenRepo.findByNama(dto.getIdkabupaten());
+        KabupatenEntity kabupatenEntity= kabupatenRepo.findByNama(dto.getNamakabupaten());
         desaEntity.setKabupatenEntity(kabupatenEntity);
         desaRepo.save(desaEntity);
 
-        ProvinsiEntity provinsiEntity= provinsiRepo.findByNama(dto.getIdprovinsi());
+        ProvinsiEntity provinsiEntity= provinsiRepo.findByNama(dto.getNamaprovinsi());
         desaEntity.setProvinsiEntity(provinsiEntity);
         desaRepo.save(desaEntity);
         return desaEntity;
@@ -57,10 +56,6 @@ public class DesaController {
 
     @PostMapping("/insert/desa")
     public ResponseEntity<?> postprovinsi(@RequestBody List<DesaDto> dto) {
-        Integer index = 0;
-        if(dto.get(index).getKodedesa() == desaRepo.findKodeKecamatanByKodeKecamatan(dto.get(index).getKodedesa())){
-            return ResponseEntity.badRequest().body(dto.get(index).getNama() + " Telah terdaftar" + " dengan kode " + dto.get(index).getKodedesa());
-        }
         for(DesaDto desaDto: dto){
             convert(desaDto);
         }
@@ -86,8 +81,7 @@ public class DesaController {
         desaEntity.setNama(dto.getNama());
         desaRepo.save(desaEntity);
 
-        return ResponseEntity.ok("Kabupaten " +kecamatanRepo.findNamebyName(dto.getKodedesa())+" dengan kode "+ id +
-        " telah diubah namanya menjadi " + dto.getNama());
+        return ResponseEntity.ok("data telah diupdate");
     }
 
     @DeleteMapping("/desa/delete-{id}")

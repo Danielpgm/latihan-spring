@@ -1,5 +1,7 @@
 package com.example.latihanSpring.repository;
 
+import java.util.List;
+
 import com.example.latihanSpring.model.entity.KabupatenEntity;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -13,6 +15,6 @@ public interface KabupatenRepo extends JpaRepository<KabupatenEntity, Integer>{
     @Query(value = "select nama from kabupaten where kode_kabupaten= ?", nativeQuery = true)
     public String findNamebyName(Integer kodeKabupaten);
 
-    @Query(value = "select kode_kabupaten from kabupaten where kode_kabupaten = ?", nativeQuery = true)
-    public Integer findKodeKabupatenByKodeKabupaten(Integer kodeKabupaten);
+    @Query(value = "select * from kabupaten where kode_kabupaten= ?", nativeQuery = true)
+    List<KabupatenEntity> findByKodeProvinsi(Integer kode);
 }
