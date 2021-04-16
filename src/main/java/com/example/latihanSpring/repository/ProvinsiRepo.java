@@ -1,5 +1,7 @@
 package com.example.latihanSpring.repository;
 
+import java.util.List;
+
 import com.example.latihanSpring.model.entity.ProvinsiEntity;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -13,6 +15,6 @@ public interface ProvinsiRepo extends JpaRepository<ProvinsiEntity, Integer> {
     @Query(value = "select kode_provinsi from provinsi where kode_provinsi = ?", nativeQuery = true)
     public Integer findKodeProvinseByKodeProvinsi(Integer kodeprovinsi);
 
-    @Query(value = "select nama from provinsi where kode_provinsi= ?", nativeQuery = true)
-    public String findNamebyName(Integer kodeprovinsi);
+    @Query(value = "select * from provinsi where kode_provinsi= ?", nativeQuery = true)
+    List<ProvinsiEntity> findByKodeProvinsi(Integer kode);
 }

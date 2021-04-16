@@ -24,9 +24,6 @@ public class DesaEntity {
     @Column(length = 80)
     private String nama;
 
-    @Column(unique = true, length = 5)
-    private Integer kodeDesa;
-
     @ManyToOne
     @JoinColumn(name = "idKecamatan")
     private KecamatanEntity kecamatanEntity;
@@ -39,10 +36,9 @@ public class DesaEntity {
     @JoinColumn(name = "idProvinsi")
     private ProvinsiEntity provinsiEntity;
 
-    public DesaEntity(String nama, Integer kodeDesa, KecamatanEntity kecamatanEntity, KabupatenEntity kabupatenEntity,
+    public DesaEntity(String nama, KecamatanEntity kecamatanEntity, KabupatenEntity kabupatenEntity,
             ProvinsiEntity provinsiEntity) {
         this.nama = nama;
-        this.kodeDesa = kodeDesa;
         this.kecamatanEntity = kecamatanEntity;
         this.kabupatenEntity = kabupatenEntity;
         this.provinsiEntity = provinsiEntity;

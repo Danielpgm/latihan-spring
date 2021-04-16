@@ -37,11 +37,11 @@ public class KecamatanController {
         kecamatanEntity.setKodeKecamatan(dto.getKodekecamatan());
         kecamatanRepo.save(kecamatanEntity);
 
-        KabupatenEntity kabupatenEntity= kabupatenRepo.findByNama(dto.getIdkabupaten());
+        KabupatenEntity kabupatenEntity= kabupatenRepo.findByNama(dto.getNamakabupaten());
         kecamatanEntity.setKabupatenEntity(kabupatenEntity);
         kecamatanRepo.save(kecamatanEntity);
 
-        ProvinsiEntity provinsiEntity= provinsiRepo.findByNama(dto.getIdprovinsi());
+        ProvinsiEntity provinsiEntity= provinsiRepo.findByNama(dto.getNamaprovinsi());
         kecamatanEntity.setProvinsiEntity(provinsiEntity);
         kecamatanRepo.save(kecamatanEntity);
         return kecamatanEntity;

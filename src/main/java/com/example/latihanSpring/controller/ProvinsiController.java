@@ -3,8 +3,7 @@ package com.example.latihanSpring.controller;
 import java.util.List;
 
 import com.example.latihanSpring.model.dto.ProvinsiDto;
-import com.example.latihanSpring.model.entity.ProvinsiEntity;
-import com.example.latihanSpring.repository.ProvinsiRepo;
+import com.example.latihanSpring.service.ProvinsiService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,55 +20,35 @@ import org.springframework.web.bind.annotation.GetMapping;
 @RequestMapping("/v1")
 public class ProvinsiController {
     @Autowired
-    private ProvinsiRepo provinsiRepo;
-
-    private ProvinsiEntity convert(ProvinsiDto dto){
-        ProvinsiEntity provinsiEntity= new ProvinsiEntity();
-        provinsiEntity.setNama(dto.getNama());
-        provinsiEntity.setKodeProvinsi(dto.getKodeprovinsi());
-    
-        provinsiRepo.save(provinsiEntity);
-        return provinsiEntity;
-    }
+    private ProvinsiService provinsiService;
 
     @PostMapping("/insert/provinsi")
     public ResponseEntity<?> postprovinsi(@RequestBody List<ProvinsiDto> dto) {
-        Integer index = 0;
-        if(dto.get(index).getKodeprovinsi() == provinsiRepo.findKodeProvinseByKodeProvinsi(dto.get(index).getKodeprovinsi())){
-            return ResponseEntity.badRequest().body(dto.get(index).getNama() + " Telah terdaftar" + " dengan kode " + dto.get(index).getKodeprovinsi());
-        }
-        for(ProvinsiDto provinsiDto: dto){
-            convert(provinsiDto);
-        }
-        return ResponseEntity.ok(dto);
+        return provinsiService.inputprovinsi(dto);
     }
 
     @PutMapping("/update/provinsi/{id}")
     public ResponseEntity<?> putProvinsi(@PathVariable Integer id, @RequestBody ProvinsiDto dto){
-        ProvinsiEntity provinsiEntity= new ProvinsiEntity();
-        
-        provinsiEntity.setNama(dto.getNama());
-        provinsiRepo.save(provinsiEntity);
-        return ResponseEntity.ok("Provinsi " +provinsiRepo.findNamebyName(dto.getKodeprovinsi())+" dengan kode "+ id +
-        " telah diubah namanya menjadi " + dto.getNama());
+        return provinsiService.updateProvinsi(id, dto);
     }
 
     @GetMapping("/get-all")
     public ResponseEntity<?> getAll() {
-        List<ProvinsiEntity> prov= provinsiRepo.findAll();
-        return ResponseEntity.ok(prov);
+        return provinsiService.getAll();
     }
 
-    @GetMapping("/get-{id}")
+    @GetMapping("/get/provinsi/{id}")
     public ResponseEntity<?> getById(@PathVariable Integer id){
-        ProvinsiEntity provinsiEntity= provinsiRepo.findById(id).get();
-        return ResponseEntity.ok(provinsiEntity);
+        return provinsiService.getById(id);
+    }
+
+    @GetMapping("/get/bykodeprovinsi/{kode}")
+    public ResponseEntity<?> getByKodeProvinsi(@PathVariable Integer kode){
+        return provinsiService.getByKodeProvinsi(kode);
     }
 
     @DeleteMapping("/delete-{id}")
     public ResponseEntity <?> deletedata(@PathVariable Integer id){
-        ProvinsiEntity provinsiEntity= provinsiRepo.findById(id).get();
-        provinsiRepo.delete(provinsiEntity);
-        return ResponseEntity.ok("Data berhasil di hapus!");
+        return provinsiService.deleteData(id);
     }
 }

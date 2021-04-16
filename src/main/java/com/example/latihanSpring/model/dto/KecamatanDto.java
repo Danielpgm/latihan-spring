@@ -10,6 +10,6 @@ import lombok.NoArgsConstructor;
 public class KecamatanDto {
     private String nama;
     private Integer kodekecamatan;
-    private String idkabupaten;
-    private String idprovinsi;
+    private String namakabupaten;
+    private String namaprovinsi;
 }
